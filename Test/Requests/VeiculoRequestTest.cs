@@ -27,7 +27,7 @@ namespace Test.Requests
         }
 
         [TestMethod]
-        public async Task TestarGetSetPropriedades()
+        public async Task TestarPostSemAutenticacao()
         {
             // Arrange
             VeiculoDTO veiculoDTO = new VeiculoDTO
