@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MinimalApi.Dominio.Entidades;
-using MinimalApi.Dominio.Interfaces;
 using MinimalApi.Dominio.Servicos;
 using Test.Helpers;
-using Test.Mocks;
 
 namespace Test.Domain.Servicos
 {
@@ -47,8 +40,7 @@ namespace Test.Domain.Servicos
                     Ano = 2001
                 };
             //Act
-            _veiculoServico.Incluir(veiculo);            
-          
+            _veiculoServico.Incluir(veiculo);         
             //Assert
             Assert.AreSame(veiculo, _veiculoServico.BuscaPorId(veiculo.Id));
         }       
