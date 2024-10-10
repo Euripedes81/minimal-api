@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using mininal_api.Dominio.Entidades;
 
 namespace MinimalApi.Dominio.Entidades;
 
@@ -12,10 +13,9 @@ public class Veiculo
     [Required]
     [StringLength(150)]
     public string Nome { get;set; } = default!;
-
-    [Required]
-    [StringLength(100)]
-    public string Marca { get;set; } = default!;
+    
+    public int MarcaVeiculoId { get; set; } =default!;
+    public Marca MarcaVeiculo { get; set; } = default!;
 
     [Required]
     public int Ano { get;set; } = default!;

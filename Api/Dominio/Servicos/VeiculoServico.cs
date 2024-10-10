@@ -27,8 +27,8 @@ public class VeiculoServico : IVeiculoServico
     }
 
     public Veiculo? BuscaPorId(int id)
-    {
-        return _contexto.Veiculos.Where(v => v.Id == id).FirstOrDefault();
+    {        
+        return _contexto.Veiculos.Include(v => v.MarcaVeiculo).FirstOrDefault(v => v.Id == id);
     }
 
     public void Incluir(Veiculo veiculo)

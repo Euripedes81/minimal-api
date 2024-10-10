@@ -10,8 +10,8 @@ using MinimalApi.Infraestrutura.Db;
 namespace mininal_api.Migrations
 {
     [DbContext(typeof(DbContexto))]
-    [Migration("20231115020944_VeiculosMigration")]
-    partial class VeiculosMigration
+    [Migration("20241010175709_CriaBancoMigration")]
+    partial class CriaBancoMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,10 +65,8 @@ namespace mininal_api.Migrations
                     b.Property<int>("Ano")
                         .HasColumnType("int");
 
-                    b.Property<string>("Marca")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                    b.Property<int>("MarcaVeiculoId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -77,7 +75,40 @@ namespace mininal_api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MarcaVeiculoId");
+
                     b.ToTable("Veiculos");
+                });
+
+            modelBuilder.Entity("mininal_api.Dominio.Entidades.Marca", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("NomeMarca")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MarcaVeiculo");
+                });
+
+            modelBuilder.Entity("MinimalApi.Dominio.Entidades.Veiculo", b =>
+                {
+                    b.HasOne("mininal_api.Dominio.Entidades.Marca", "MarcaVeiculo")
+                        .WithMany("Veiculos")
+                        .HasForeignKey("MarcaVeiculoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MarcaVeiculo");
+                });
+
+            modelBuilder.Entity("mininal_api.Dominio.Entidades.Marca", b =>
+                {
+                    b.Navigation("Veiculos");
                 });
 #pragma warning restore 612, 618
         }

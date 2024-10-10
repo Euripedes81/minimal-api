@@ -15,6 +15,7 @@ using MinimalApi.Dominio.ModelViews;
 using MinimalApi.Dominio.Servicos;
 using MinimalApi.DTOs;
 using MinimalApi.Infraestrutura.Db;
+using mininal_api.Dominio.ModelViews;
 
 public class Startup
 {
@@ -223,8 +224,8 @@ public class Startup
                 if(string.IsNullOrEmpty(veiculoDTO.Nome))
                     validacao.Mensagens.Add("O nome não pode ser vazio");
 
-                if(string.IsNullOrEmpty(veiculoDTO.Marca))
-                    validacao.Mensagens.Add("A Marca não pode ficar em branco");
+                if(veiculoDTO.MarcaVeiculoId <= 0)
+                    validacao.Mensagens.Add("Id inválido");
 
                 if(veiculoDTO.Ano < 1950)
                     validacao.Mensagens.Add("Veículo muito antigo, aceito somete anos superiores a 1950");
@@ -239,7 +240,7 @@ public class Startup
                 
                 var veiculo = new Veiculo{
                     Nome = veiculoDTO.Nome,
-                    Marca = veiculoDTO.Marca,
+                    MarcaVeiculoId = veiculoDTO.MarcaVeiculoId,
                     Ano = veiculoDTO.Ano
                 };
                 veiculoServico.Incluir(veiculo);
@@ -258,8 +259,24 @@ public class Startup
 
             endpoints.MapGet("/veiculos/{id}", ([FromRoute] int id, IVeiculoServico veiculoServico) => {
                 var veiculo = veiculoServico.BuscaPorId(id);
-                if(veiculo == null) return Results.NotFound();
-                return Results.Ok(veiculo);
+                VeiculoModelView veiculoModelView;
+               
+                if(veiculo == null)
+                { 
+                    return Results.NotFound();
+                }
+                else
+                {
+                    veiculoModelView = new VeiculoModelView()
+                    {
+                        Id = veiculo.Id,
+                        Nome = veiculo.Nome,
+                        Ano = veiculo.Ano,
+                        MarcaVeiculo = veiculo.MarcaVeiculo
+                    };
+                }
+               
+                return Results.Ok(veiculoModelView);
             })
             .RequireAuthorization()
             .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
@@ -274,7 +291,7 @@ public class Startup
                     return Results.BadRequest(validacao);
                 
                 veiculo.Nome = veiculoDTO.Nome;
-                veiculo.Marca = veiculoDTO.Marca;
+                veiculo.MarcaVeiculoId = veiculoDTO.MarcaVeiculoId;
                 veiculo.Ano = veiculoDTO.Ano;
 
                 veiculoServico.Atualizar(veiculo);
