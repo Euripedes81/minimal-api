@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MinimalApi.Dominio.Entidades;
 
-namespace mininal_api.Dominio.ModelViews
+namespace MinimalApi.Dominio.ModelViews
 {
     public class VeiculoModelView
     {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace mininal_api.Migrations
+namespace MinimalApi.Migrations
 {
     /// <inheritdoc />
     public partial class CriaBancoMigration : Migration

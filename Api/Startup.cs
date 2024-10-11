@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using MinimalApi;
+using MinimalApi.Dominio.DTOs;
 using MinimalApi.Dominio.Entidades;
 using MinimalApi.Dominio.Enuns;
 using MinimalApi.Dominio.Interfaces;
@@ -15,7 +15,6 @@ using MinimalApi.Dominio.ModelViews;
 using MinimalApi.Dominio.Servicos;
 using MinimalApi.DTOs;
 using MinimalApi.Infraestrutura.Db;
-using mininal_api.Dominio.ModelViews;
 
 public class Startup
 {
@@ -46,6 +45,8 @@ public class Startup
 
         services.AddScoped<IAdministradorServico, AdministradorServico>();
         services.AddScoped<IVeiculoServico, VeiculoServico>();
+        services.AddScoped<IMarcaServico, MarcaServico>();
+
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(options => {
@@ -247,15 +248,17 @@ public class Startup
 
                 return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
             })
-            .RequireAuthorization()
-            .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
+            // .RequireAuthorization()
+            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
             .WithTags("Veiculos");
 
             endpoints.MapGet("/veiculos", ([FromQuery] int? pagina, IVeiculoServico veiculoServico) => {
                 var veiculos = veiculoServico.Todos(pagina);
 
                 return Results.Ok(veiculos);
-            }).RequireAuthorization().WithTags("Veiculos");
+            })
+            // .RequireAuthorization()
+            .WithTags("Veiculos");
 
             endpoints.MapGet("/veiculos/{id}", ([FromRoute] int id, IVeiculoServico veiculoServico) => {
                 var veiculo = veiculoServico.BuscaPorId(id);
@@ -278,8 +281,8 @@ public class Startup
                
                 return Results.Ok(veiculoModelView);
             })
-            .RequireAuthorization()
-            .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
+            // .RequireAuthorization()
+            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
             .WithTags("Veiculos");
 
             endpoints.MapPut("/veiculos/{id}", ([FromRoute] int id, VeiculoDTO veiculoDTO, IVeiculoServico veiculoServico) => {
@@ -314,6 +317,89 @@ public class Startup
             .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
             .WithTags("Veiculos");
             #endregion
+       
+            #region Marcas
+            ErrosDeValidacao validaDTOMarca(MarcaDTO marcaDTO)
+            {
+                var validacao = new ErrosDeValidacao{
+                    Mensagens = new List<string>()
+                };
+
+                if(string.IsNullOrEmpty(marcaDTO.NomeMarca))
+                    validacao.Mensagens.Add("O nome não pode ser vazio");              
+
+                return validacao;
+            }
+
+            endpoints.MapPost("/marcas", ([FromBody] MarcaDTO marcaDTO, IMarcaServico marcaServico) => {
+                var validacao = validaDTOMarca(marcaDTO);
+                if(validacao.Mensagens.Count > 0)
+                    return Results.BadRequest(validacao);
+                
+                var marca = new Marca{
+                    NomeMarca = marcaDTO.NomeMarca                    
+                };
+                marcaServico.Incluir(marca);
+
+                return Results.Created($"/marcas/{marca.Id}", marca);
+            })
+            // .RequireAuthorization()
+            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
+            .WithTags("Marcas");
+
+            endpoints.MapGet("/marcas", ([FromQuery] int? pagina, IMarcaServico marcaServico) => {
+                var marcas = marcaServico.Todos(pagina);
+
+                return Results.Ok(marcas);
+            })
+            // .RequireAuthorization()
+            .WithTags("Marcas");
+
+            endpoints.MapGet("/marcas/{id}", ([FromRoute] int id, IMarcaServico marcaServico) => {
+                var marca = marcaServico.BuscaPorId(id);              
+               
+                if(marca == null)
+                { 
+                    return Results.NotFound();
+                }               
+               
+                return Results.Ok(marca);
+            })
+            // .RequireAuthorization()
+            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
+            .WithTags("Marcas");
+
+            endpoints.MapPut("/marcas/{id}", ([FromRoute] int id, MarcaDTO marcaDTO, IMarcaServico marcaServico) => {
+                var marca  = marcaServico.BuscaPorId(id);
+                if(marca == null) return Results.NotFound();
+                
+                var validacao = validaDTOMarca(marcaDTO);
+                if(validacao.Mensagens.Count > 0)
+                    return Results.BadRequest(validacao);
+                
+                marca.NomeMarca = marcaDTO.NomeMarca;
+
+                marcaServico.Atualizar(marca);
+
+                return Results.Ok(marca);
+            })
+            // .RequireAuthorization()
+            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
+            .WithTags("Marcas");
+
+            endpoints.MapDelete("/marcas/{id}", ([FromRoute] int id, IMarcaServico marcaServico) =>
+            {
+                var marca = marcaServico.BuscaPorId(id);
+                if (marca == null) return Results.NotFound();
+
+                marcaServico.Apagar(marca);
+
+                return Results.NoContent();
+            })
+            // .RequireAuthorization()
+            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
+            .WithTags("Marcas");
+             #endregion
         });
     }
 }
