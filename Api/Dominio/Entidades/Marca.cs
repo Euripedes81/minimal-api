@@ -10,6 +10,6 @@ namespace MinimalApi.Dominio.Entidades
         public int Id { get; set; }
 
         [Required]        
-        public string? NomeMarca { get; set; }       
+        public string? NomeMarca { get; set; } = default!;      
     }
 }

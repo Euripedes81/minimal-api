@@ -6,7 +6,7 @@ using MinimalApi.Infraestrutura.Db;
 
 #nullable disable
 
-namespace mininal_api.Migrations
+namespace MinimalApi.Migrations
 {
     [DbContext(typeof(DbContexto))]
     partial class DbContextoModelSnapshot : ModelSnapshot
@@ -77,7 +77,7 @@ namespace mininal_api.Migrations
                     b.ToTable("Veiculos");
                 });
 
-            modelBuilder.Entity("mininal_api.Dominio.Entidades.Marca", b =>
+            modelBuilder.Entity("MinimalApi.Dominio.Entidades.Marca", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,7 +94,7 @@ namespace mininal_api.Migrations
 
             modelBuilder.Entity("MinimalApi.Dominio.Entidades.Veiculo", b =>
                 {
-                    b.HasOne("mininal_api.Dominio.Entidades.Marca", "MarcaVeiculo")
+                    b.HasOne("MinimalApi.Dominio.Entidades.Marca", "MarcaVeiculo")
                         .WithMany("Veiculos")
                         .HasForeignKey("MarcaVeiculoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -103,7 +103,7 @@ namespace mininal_api.Migrations
                     b.Navigation("MarcaVeiculo");
                 });
 
-            modelBuilder.Entity("mininal_api.Dominio.Entidades.Marca", b =>
+            modelBuilder.Entity("MinimalApi.Dominio.Entidades.Marca", b =>
                 {
                     b.Navigation("Veiculos");
                 });
