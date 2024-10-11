@@ -11,7 +11,7 @@ namespace MinimalApi.Dominio.ModelViews
          public int Id { get;set; } = default!;
          public string Nome { get;set; } = default!;        
          public int Ano { get; set; } = default!;
-         public Marca MarcaVeiculo { get; set; } = default!;       
+         public Marca MarcaVeiculos { get; set; } = default!;       
 
     }
 }

@@ -34,7 +34,7 @@ namespace MinimalApi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "MarcaVeiculo",
+                name: "MarcaVeiculos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -44,7 +44,7 @@ namespace MinimalApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MarcaVeiculo", x => x.Id);
+                    table.PrimaryKey("PK_MarcaVeiculos", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -56,16 +56,16 @@ namespace MinimalApi.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Nome = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    MarcaVeiculoId = table.Column<int>(type: "int", nullable: false),
+                    MarcaVeiculosId = table.Column<int>(type: "int", nullable: false),
                     Ano = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Veiculos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Veiculos_MarcaVeiculo_MarcaVeiculoId",
-                        column: x => x.MarcaVeiculoId,
-                        principalTable: "MarcaVeiculo",
+                        name: "FK_Veiculos_MarcaVeiculos_MarcaVeiculosId",
+                        column: x => x.MarcaVeiculosId,
+                        principalTable: "MarcaVeiculos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -77,9 +77,9 @@ namespace MinimalApi.Migrations
                 values: new object[] { 1, "administrador@teste.com", "Adm", "123456" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Veiculos_MarcaVeiculoId",
+                name: "IX_Veiculos_MarcaVeiculosId",
                 table: "Veiculos",
-                column: "MarcaVeiculoId");
+                column: "MarcaVeiculosId");
         }
 
         /// <inheritdoc />
@@ -92,7 +92,7 @@ namespace MinimalApi.Migrations
                 name: "Veiculos");
 
             migrationBuilder.DropTable(
-                name: "MarcaVeiculo");
+                name: "MarcaVeiculos");
         }
     }
 }

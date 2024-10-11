@@ -53,30 +53,6 @@ namespace MinimalApi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MinimalApi.Dominio.Entidades.Veiculo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("Ano")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MarcaVeiculoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MarcaVeiculoId");
-
-                    b.ToTable("Veiculos");
-                });
-
             modelBuilder.Entity("MinimalApi.Dominio.Entidades.Marca", b =>
                 {
                     b.Property<int>("Id")
@@ -89,18 +65,42 @@ namespace MinimalApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MarcaVeiculo");
+                    b.ToTable("MarcaVeiculos");
                 });
 
             modelBuilder.Entity("MinimalApi.Dominio.Entidades.Veiculo", b =>
                 {
-                    b.HasOne("MinimalApi.Dominio.Entidades.Marca", "MarcaVeiculo")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Ano")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MarcaVeiculosId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MarcaVeiculosId");
+
+                    b.ToTable("Veiculos");
+                });
+
+            modelBuilder.Entity("MinimalApi.Dominio.Entidades.Veiculo", b =>
+                {
+                    b.HasOne("MinimalApi.Dominio.Entidades.Marca", "MarcaVeiculos")
                         .WithMany("Veiculos")
-                        .HasForeignKey("MarcaVeiculoId")
+                        .HasForeignKey("MarcaVeiculosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("MarcaVeiculo");
+                    b.Navigation("MarcaVeiculos");
                 });
 
             modelBuilder.Entity("MinimalApi.Dominio.Entidades.Marca", b =>

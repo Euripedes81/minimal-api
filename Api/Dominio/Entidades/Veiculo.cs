@@ -13,8 +13,8 @@ public class Veiculo
     [StringLength(150)]
     public string Nome { get;set; } = default!;
     
-    public int MarcaVeiculoId { get; set; } =default!;
-    public Marca MarcaVeiculo { get; set; } = default!;
+    public int MarcaVeiculosId { get; set; } = default!;
+    public virtual Marca MarcaVeiculos { get; set; } = default!;
 
     [Required]
     public int Ano { get;set; } = default!;

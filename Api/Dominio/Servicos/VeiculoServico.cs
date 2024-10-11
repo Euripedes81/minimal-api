@@ -28,7 +28,7 @@ public class VeiculoServico : IVeiculoServico
 
     public Veiculo? BuscaPorId(int id)
     {        
-        return _contexto.Veiculos.Include(v => v.MarcaVeiculo).FirstOrDefault(v => v.Id == id);
+        return _contexto.Veiculos.Include(v => v.MarcaVeiculos).FirstOrDefault(v => v.Id == id);
     }
 
     public void Incluir(Veiculo veiculo)
@@ -39,7 +39,7 @@ public class VeiculoServico : IVeiculoServico
 
     public List<Veiculo> Todos(int? pagina = 1, string? nome = null, string? marca = null)
     {
-        var query = _contexto.Veiculos.AsQueryable();
+        var query = _contexto.Veiculos.Include(v => v.MarcaVeiculos).AsQueryable();
         if(!string.IsNullOrEmpty(nome))
         {
             query = query.Where(v => EF.Functions.Like(v.Nome.ToLower(), $"%{nome}%"));

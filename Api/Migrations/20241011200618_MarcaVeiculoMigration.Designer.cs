@@ -10,8 +10,8 @@ using MinimalApi.Infraestrutura.Db;
 namespace MinimalApi.Migrations
 {
     [DbContext(typeof(DbContexto))]
-    [Migration("20241010175709_CriaBancoMigration")]
-    partial class CriaBancoMigration
+    [Migration("20241011200618_MarcaVeiculoMigration")]
+    partial class MarcaVeiculoMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,6 +56,21 @@ namespace MinimalApi.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MinimalApi.Dominio.Entidades.Marca", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("NomeMarca")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MarcaVeiculos");
+                });
+
             modelBuilder.Entity("MinimalApi.Dominio.Entidades.Veiculo", b =>
                 {
                     b.Property<int>("Id")
@@ -78,21 +93,6 @@ namespace MinimalApi.Migrations
                     b.HasIndex("MarcaVeiculosId");
 
                     b.ToTable("Veiculos");
-                });
-
-            modelBuilder.Entity("MinimalApi.Dominio.Entidades.Marca", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("NomeMarca")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MarcaVeiculos");
                 });
 
             modelBuilder.Entity("MinimalApi.Dominio.Entidades.Veiculo", b =>

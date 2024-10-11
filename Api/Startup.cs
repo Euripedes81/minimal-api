@@ -225,7 +225,7 @@ public class Startup
                 if(string.IsNullOrEmpty(veiculoDTO.Nome))
                     validacao.Mensagens.Add("O nome não pode ser vazio");
 
-                if(veiculoDTO.MarcaVeiculoId <= 0)
+                if(veiculoDTO.MarcaVeiculosId <= 0)
                     validacao.Mensagens.Add("Id inválido");
 
                 if(veiculoDTO.Ano < 1950)
@@ -241,7 +241,7 @@ public class Startup
                 
                 var veiculo = new Veiculo{
                     Nome = veiculoDTO.Nome,
-                    MarcaVeiculoId = veiculoDTO.MarcaVeiculoId,
+                    MarcaVeiculosId = veiculoDTO.MarcaVeiculosId,
                     Ano = veiculoDTO.Ano
                 };
                 veiculoServico.Incluir(veiculo);
@@ -275,7 +275,7 @@ public class Startup
                         Id = veiculo.Id,
                         Nome = veiculo.Nome,
                         Ano = veiculo.Ano,
-                        MarcaVeiculo = veiculo.MarcaVeiculo
+                        MarcaVeiculos = veiculo.MarcaVeiculos
                     };
                 }
                
@@ -294,7 +294,7 @@ public class Startup
                     return Results.BadRequest(validacao);
                 
                 veiculo.Nome = veiculoDTO.Nome;
-                veiculo.MarcaVeiculoId = veiculoDTO.MarcaVeiculoId;
+                veiculo.MarcaVeiculosId = veiculoDTO.MarcaVeiculosId;
                 veiculo.Ano = veiculoDTO.Ano;
 
                 veiculoServico.Atualizar(veiculo);

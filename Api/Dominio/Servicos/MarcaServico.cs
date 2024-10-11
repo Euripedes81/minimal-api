@@ -20,30 +20,30 @@ namespace MinimalApi.Dominio.Servicos
 
     public void Apagar(Marca marca)
     {
-        _contexto.MarcaVeiculo.Remove(marca);
+        _contexto.MarcaVeiculos.Remove(marca);
         _contexto.SaveChanges();
     }
 
     public void Atualizar(Marca marca)
     {
-        _contexto.MarcaVeiculo.Update(marca);
+        _contexto.MarcaVeiculos.Update(marca);
         _contexto.SaveChanges();
     }
 
     public Marca? BuscaPorId(int id)
     {        
-        return _contexto.MarcaVeiculo.FirstOrDefault(v => v.Id == id);
+        return _contexto.MarcaVeiculos.FirstOrDefault(v => v.Id == id);
     }
 
     public void Incluir(Marca marca)
     {
-        _contexto.MarcaVeiculo.Add(marca);
+        _contexto.MarcaVeiculos.Add(marca);
         _contexto.SaveChanges();
     }
 
     public List<Marca> Todos(int? pagina = 1, string? nome = null)
     {
-        var query = _contexto.MarcaVeiculo.AsQueryable();
+        var query = _contexto.MarcaVeiculos.AsQueryable();
         if(!string.IsNullOrEmpty(nome))
         {
             query = query.Where(m => EF.Functions.Like(m.NomeMarca.ToLower(), $"%{nome}%"));

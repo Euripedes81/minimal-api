@@ -10,6 +10,8 @@ namespace MinimalApi.Dominio.Entidades
         public int Id { get; set; }
 
         [Required]        
-        public string? NomeMarca { get; set; } = default!;      
+        public string? NomeMarca { get; set; } = default!;  
+
+        // public virtual ICollection<Veiculo>? Veiculos  { get; set; }    
     }
 }

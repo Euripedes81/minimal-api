@@ -13,7 +13,7 @@ public class DbContexto : DbContext
 
     public DbSet<Administrador> Administradores { get; set; } = default!;
     public DbSet<Veiculo> Veiculos { get; set; } = default!;
-    public DbSet<Marca> MarcaVeiculo { get; set; }  = default!;
+    public DbSet<Marca> MarcaVeiculos { get; set; }  = default!;
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,7 +25,12 @@ public class DbContexto : DbContext
                 Senha = "123456",
                 Perfil = "Adm"
              }
-        );    
+        );  
+
+        //  modelBuilder.Entity<Marca>()
+        //     .HasMany(m => m.Veiculos)
+        //     .WithOne(v => v.MarcaVeiculos)
+        //     .HasForeignKey(v => v.MarcaVeiculosId); 
            
     }
 
