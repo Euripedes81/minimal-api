@@ -301,8 +301,8 @@ public class Startup
 
                 return Results.Ok(veiculo);
             })
-            .RequireAuthorization()
-            .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
+            // .RequireAuthorization()
+            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
             .WithTags("Veiculos");
 
             endpoints.MapDelete("/veiculos/{id}", ([FromRoute] int id, IVeiculoServico veiculoServico) => {
@@ -313,8 +313,8 @@ public class Startup
 
                 return Results.NoContent();
             })
-            .RequireAuthorization()
-            .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
+            // .RequireAuthorization()
+            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
             .WithTags("Veiculos");
             #endregion
        
