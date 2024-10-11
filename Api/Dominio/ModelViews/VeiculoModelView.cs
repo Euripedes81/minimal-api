@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using mininal_api.Dominio.Entidades;
+using MinimalApi.Dominio.Entidades;
 
 namespace mininal_api.Dominio.ModelViews
 {
