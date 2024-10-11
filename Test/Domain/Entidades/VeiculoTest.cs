@@ -19,13 +19,13 @@ namespace Test.Domain.Entidades
             //Act
             veiculo.Id = 1;
             veiculo.Nome = "Fusca";
-            veiculo.Marca = "Volkswagen";
+            veiculo.MarcaVeiculoId = 1;
             veiculo.Ano = 1970;
 
             //Assert
             Assert.AreEqual(1, veiculo.Id);
             Assert.AreEqual("Fusca", veiculo.Nome);
-            Assert.AreEqual("Volkswagen", veiculo.Marca);
+            Assert.AreEqual(1, veiculo.MarcaVeiculoId);
             Assert.AreEqual(1970, veiculo.Ano);
 
         }

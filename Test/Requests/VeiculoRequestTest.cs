@@ -33,7 +33,7 @@ namespace Test.Requests
             VeiculoDTO veiculoDTO = new VeiculoDTO
             {
                 Nome = "Palio",
-                Marca = "Fiat",
+                MarcaVeiculoId = 1,
                 Ano = 2009
             };
 

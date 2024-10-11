@@ -11,8 +11,8 @@ namespace Test.Mocks
     {     
         private List<Veiculo> _veiculos = new List<Veiculo> 
         {
-            new Veiculo { Id = 1, Nome = "Fusca", Marca = "Volkswagen" , Ano = 1970},
-            new Veiculo { Id = 2, Nome = "Opalla", Marca = "Chevrolett", Ano = 1974}
+            new Veiculo { Id = 1, Nome = "Fusca", MarcaVeiculoId = 1 , Ano = 1970},
+            new Veiculo { Id = 2, Nome = "Opalla", MarcaVeiculoId = 1, Ano = 1974}
         };
         public void Apagar(Veiculo veiculo)
         {
