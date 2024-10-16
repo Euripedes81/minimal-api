@@ -36,7 +36,7 @@ namespace Test.Domain.Servicos
                 {
                     Id = 1,
                     Nome = "Gol",
-                    MarcaVeiculoId = 1,
+                    MarcaVeiculosId = 1,
                     Ano = 2001
                 };
             //Act
