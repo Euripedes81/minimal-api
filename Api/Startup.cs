@@ -248,8 +248,8 @@ public class Startup
 
                 return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
             })
-            // .RequireAuthorization()
-            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
+            .RequireAuthorization()
+            .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
             .WithTags("Veiculos");
 
             endpoints.MapGet("/veiculos", ([FromQuery] int? pagina, IVeiculoServico veiculoServico) => {
@@ -257,7 +257,7 @@ public class Startup
 
                 return Results.Ok(veiculos);
             })
-            // .RequireAuthorization()
+            .RequireAuthorization()
             .WithTags("Veiculos");
 
             endpoints.MapGet("/veiculos/{id}", ([FromRoute] int id, IVeiculoServico veiculoServico) => {
@@ -281,8 +281,8 @@ public class Startup
                
                 return Results.Ok(veiculoModelView);
             })
-            // .RequireAuthorization()
-            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
+            .RequireAuthorization()
+            .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
             .WithTags("Veiculos");
 
             endpoints.MapPut("/veiculos/{id}", ([FromRoute] int id, VeiculoDTO veiculoDTO, IVeiculoServico veiculoServico) => {
@@ -301,8 +301,8 @@ public class Startup
 
                 return Results.Ok(veiculo);
             })
-            // .RequireAuthorization()
-            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
+            .RequireAuthorization()
+            .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
             .WithTags("Veiculos");
 
             endpoints.MapDelete("/veiculos/{id}", ([FromRoute] int id, IVeiculoServico veiculoServico) => {
@@ -313,8 +313,8 @@ public class Startup
 
                 return Results.NoContent();
             })
-            // .RequireAuthorization()
-            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
+            .RequireAuthorization()
+            .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
             .WithTags("Veiculos");
             #endregion
        
@@ -343,8 +343,8 @@ public class Startup
 
                 return Results.Created($"/marcas/{marca.Id}", marca);
             })
-            // .RequireAuthorization()
-            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
+            .RequireAuthorization()
+            .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
             .WithTags("Marcas");
 
             endpoints.MapGet("/marcas", ([FromQuery] int? pagina, IMarcaServico marcaServico) => {
@@ -352,7 +352,7 @@ public class Startup
 
                 return Results.Ok(marcas);
             })
-            // .RequireAuthorization()
+            .RequireAuthorization()
             .WithTags("Marcas");
 
             endpoints.MapGet("/marcas/{id}", ([FromRoute] int id, IMarcaServico marcaServico) => {
@@ -365,8 +365,8 @@ public class Startup
                
                 return Results.Ok(marca);
             })
-            // .RequireAuthorization()
-            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
+            .RequireAuthorization()
+            .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
             .WithTags("Marcas");
 
             endpoints.MapPut("/marcas/{id}", ([FromRoute] int id, MarcaDTO marcaDTO, IMarcaServico marcaServico) => {
@@ -383,8 +383,8 @@ public class Startup
 
                 return Results.Ok(marca);
             })
-            // .RequireAuthorization()
-            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
+            .RequireAuthorization()
+            .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
             .WithTags("Marcas");
 
             endpoints.MapDelete("/marcas/{id}", ([FromRoute] int id, IMarcaServico marcaServico) =>
@@ -396,8 +396,8 @@ public class Startup
 
                 return Results.NoContent();
             })
-            // .RequireAuthorization()
-            // .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
+            .RequireAuthorization()
+            .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
             .WithTags("Marcas");
              #endregion
         });
