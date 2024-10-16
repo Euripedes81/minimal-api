@@ -10,36 +10,39 @@ using Test.Helpers;
 
 namespace Test.Domain.Servicos
 {
+    [TestClass]
     public class MarcaServicoTeste
     {   
-        private readonly MarcaServico? _marcaServico;  
+        private readonly MarcaServico _marcaServico;  
 
         public MarcaServicoTeste()
         {
             _marcaServico = new MarcaServico(CriadorContexto.CriarContextoDeTeste());
         }  
 
+        [TestMethod]
         public void TestarBuscaPorId()
         {
            var marca = _marcaServico?.BuscaPorId(1);
 
-           Assert.AreEqual(1, marca);
+           Assert.AreEqual(1, marca?.Id);
         }
 
+         [TestMethod]
         public void TestarIncluir()
         {
-             var context = CriadorContexto.CriarContextoDeTeste();
-            context.Database.ExecuteSqlRaw("TRUNCATE TABLE Veiculos");
+            var context = CriadorContexto.CriarContextoDeTeste();
+            context.Database.ExecuteSqlRaw("DELETE FROM  MarcaVeiculos WHERE Id=2");
 
             Marca marca = new Marca()
             {
-                Id = 1,
-                NomeMarca = "Fiat"
+                Id = 2,
+                NomeMarca = "Volkswagen"
             };
 
-            _marcaServico?.Incluir(marca);
+            _marcaServico.Incluir(marca);
 
-            Assert.AreSame(marca, _marcaServico?.BuscaPorId(marca.Id));
+            Assert.AreSame(marca, _marcaServico.BuscaPorId(marca.Id));
         }
 
     }
