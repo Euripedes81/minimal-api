@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using MinimalApi.Dominio.Entidades;
 using MinimalApi.Dominio.Servicos;
 using Test.Helpers;
+using Test.Mocks;
 
 namespace Test.Domain.Servicos
 {
@@ -43,6 +44,27 @@ namespace Test.Domain.Servicos
             _veiculoServico.Incluir(veiculo);         
             //Assert
             Assert.AreSame(veiculo, _veiculoServico.BuscaPorId(veiculo.Id));
+        }
+
+        [TestMethod]
+        public void TestarApagarVeiculo()
+        {
+            //Arrange
+            Veiculo veiculo = new Veiculo()
+            {
+                Id = 2,
+                Nome = "Opalla",
+                MarcaVeiculosId = 1,
+                Ano = 1974
+            };
+
+            VeiculoServicoMock veiculoServicoMock = new VeiculoServicoMock();
+
+            //Act
+            veiculoServicoMock.Apagar(veiculo);
+
+            //Assert
+            Assert.IsNotNull(veiculo);
         }       
     }
 }

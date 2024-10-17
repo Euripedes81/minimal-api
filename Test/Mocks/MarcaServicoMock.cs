@@ -12,7 +12,8 @@ namespace Test.Mocks
         private List<Marca> marcas = new List<Marca>() 
         {
             new Marca { Id = 1, NomeMarca = "Fiat" },
-            new Marca { Id = 2, NomeMarca = "Volkswagen" }
+            new Marca { Id = 2, NomeMarca = "Volkswagen" },
+            new Marca { Id = 3, NomeMarca = "Chevrolet" }
         };
 
         public void Apagar(Marca marca)
@@ -37,7 +38,7 @@ namespace Test.Mocks
 
         public List<Marca> Todos(int? pagina = 1, string? nome = null)
         {
-            throw new NotImplementedException();
+            return marcas;
         }
     }
 }

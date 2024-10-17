@@ -7,6 +7,7 @@ using MinimalApi.Dominio.Entidades;
 using MinimalApi.Dominio.Interfaces;
 using MinimalApi.Dominio.Servicos;
 using Test.Helpers;
+using Test.Mocks;
 
 namespace Test.Domain.Servicos
 {
@@ -43,6 +44,19 @@ namespace Test.Domain.Servicos
             _marcaServico.Incluir(marca);
 
             Assert.AreSame(marca, _marcaServico.BuscaPorId(marca.Id));
+        }
+
+        [TestMethod]
+        public void TestarBuscaTodos()
+        {
+            //Arrange
+            MarcaServicoMock marcaServicoMock = new MarcaServicoMock();
+
+            //Act
+            var marcas = marcaServicoMock.Todos();
+            
+            //Assert
+            Assert.AreEqual(3, marcas.Count);
         }
 
     }
